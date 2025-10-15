@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Services — Healthy Life Clinic (Interactive)</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .top-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .search-box input {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.03);
+    color: white;
+    width: 240px;
+    outline: none;
+  }
+
+  .search-box input::placeholder {
+    color: var(--muted);
+  }
+
+  .filter-select {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.03);
+    color: white;
+    cursor: pointer;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .service-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+  }
+
+  .service-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .service-info {
+    padding: 16px;
+  }
+
+  .service-info h4 {
+    margin: 0;
+    color: white;
+  }
+
+  .service-info p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .service-info .cta {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 12px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s ease;
+  }
+
+  .service-info .cta:hover {
+    background: linear-gradient(90deg, var(--accent2), var(--accent1));
+  }
+</style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo-wrap">
+      <div class="logo">HL</div>
+      <div class="brand-text"><div class="title">Healthy Life Clinic</div><div class="tag">Modern care</div></div>
+    </div>
+
+    <div class="header-center">
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="About.html">About</a>
+        <a href="Services.html" class="active">Services</a>
+        <a href="Contact.html">Contact</a>
+      </nav>
+    </div>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="filterBtn">Filter</button>
+      <button class="icon-btn" id="sortBtn">Sort</button>
+      <button class="cta-primary" onclick="location='Contact.html'">Book</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero-card">
+      <h2 style="color:var(--accent1)">Our Services</h2>
+      <p>We offer a wide range of specialized healthcare services. Use the search, filter, or sort tools below to explore easily.</p>
+
+      <div class="top-bar">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="🔍 Search services..." />
+        </div>
+        <select id="filterSelect" class="filter-select">
+          <option value="all">All Categories</option>
+          <option value="Cardiology">Cardiology</option>
+          <option value="Neurology">Neurology</option>
+          <option value="Pediatrics">Pediatrics</option>
+          <option value="Orthopedics">Orthopedics</option>
+          <option value="Dermatology">Dermatology</option>
+          <option value="Gynecology">Gynecology</option>
+          <option value="ENT">ENT</option>
+          <option value="Oncology">Oncology</option>
+          <option value="Rehabilitation">Rehabilitation</option>
+          <option value="Radiology">Radiology</option>
+          <option value="Telemedicine">Telemedicine</option>
+        </select>
+      </div>
+
+      <div id="servicesGrid" class="services-grid"></div>
+    </section>
+
+    <footer class="footer">© 2025 Healthy Life Clinic</footer>
+  </main>
+
+<script>
+  const services = [
+    {name:'General Medicine', desc:'Comprehensive primary healthcare services for all age groups.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515308/download_rku58i.jpg', category:'General'},
+
+
+    {name:'Cardiology', desc:'Heart health assessments, ECG, and advanced cardiology care.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515331/download_iqud8k.jpg', category:'Cardiology'},
+
+
+    {name:'Pediatrics', desc:'Child wellness, immunization, and developmental screening.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515348/download_e3jwpa.jpg', category:'Pediatrics'},
+
+
+    {name:'Orthopedics', desc:'Bone, joint, and muscle treatment including physiotherapy.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515362/download_ipuqwa.jpg', category:'Orthopedics'},
+
+
+    {name:'Dermatology', desc:'Skincare, acne, laser therapy, and cosmetic dermatology.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515389/download_ack6mp.jpg', category:'Dermatology'},
+
+
+    {name:'Neurology', desc:'Brain, spinal cord, and nerve disorder treatment and care.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515410/download_dc7j9i.jpg', category:'Neurology'},
+
+
+    {name:'Gynecology', desc:'Women’s reproductive health, prenatal, and fertility care.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515428/download_nmwa4u.jpg', category:'Gynecology'},
+
+
+    {name:'ENT (Ear, Nose, Throat)', desc:'Hearing tests, sinus, and throat infection treatment.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515456/download_f7fpye.jpg', category:'ENT'},
+
+
+    {name:'Oncology', desc:'Cancer screening, chemotherapy, and advanced oncology support.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515494/images_erimwm.jpg', category:'Oncology'},
+
+
+    {name:'Rehabilitation Therapy', desc:'Post-surgery and injury rehabilitation with modern equipment.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515506/download_wypadt.jpg', category:'Rehabilitation'},
+
+
+    {name:'Radiology & Imaging', desc:'Digital X-ray, MRI, and ultrasound diagnostic services.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515529/download_c2mc6c.jpg', category:'Radiology'},
+
+
+    {name:'Emergency Services', desc:'24/7 emergency response with advanced trauma support.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515553/images_c7opdo.jpg', category:'General'},
+
+
+    {name:'Telemedicine', desc:'Video consultations with our doctors from anywhere.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515581/download_xpej8t.jpg', category:'Telemedicine'},
+
+
+    {name:'Dental Care', desc:'Routine check-ups, orthodontics, and smile restoration.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515596/download_kykka9.jpg', category:'General'},
+
+    {name:'Diet & Nutrition', desc:'Personalized nutrition plans and weight management.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515619/download_zuuvbl.jpg', category:'General'}
+  ];
+
+  const grid = document.getElementById('servicesGrid');
+  const searchInput = document.getElementById('searchInput');
+  const filterSelect = document.getElementById('filterSelect');
+  const sortBtn = document.getElementById('sortBtn');
+
+  let sortAscending = true;
+
+  function renderServices(list) {
+    grid.innerHTML = '';
+    list.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'service-card';
+      card.innerHTML = `
+        <img src="${s.img}" alt="${s.name}">
+        <div class="service-info">
+          <h4>${s.name}</h4>
+          <p>${s.desc}</p>
+          <a href="Contact.html" class="cta">Book Now</a>
+        </div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  function filterAndRender() {
+    const query = searchInput.value.toLowerCase();
+    const category = filterSelect.value;
+    let filtered = services.filter(s => 
+      (category === 'all' || s.category === category) &&
+      (s.name.toLowerCase().includes(query) || s.desc.toLowerCase().includes(query))
+    );
+
+    if (!sortAscending) {
+      filtered = filtered.sort((a,b)=> b.name.localeCompare(a.name));
+    } else {
+      filtered = filtered.sort((a,b)=> a.name.localeCompare(b.name));
+    }
+
+    renderServices(filtered);
+  }
+
+  // Initialize page
+  renderServices(services);
+
+  // Event listeners
+  searchInput.addEventListener('input', filterAndRender);
+  filterSelect.addEventListener('change', filterAndRender);
+
+  sortBtn.addEventListener('click', ()=> {
+    sortAscending = !sortAscending;
+    sortBtn.textContent = sortAscending ? 'Sort 🔼' : 'Sort 🔽';
+    filterAndRender();
+  });
+
+  document.getElementById('filterBtn').addEventListener('click', ()=> {
+    filterSelect.focus();
+    filterSelect.style.borderColor = 'var(--accent2)';
+    setTimeout(()=> filterSelect.style.borderColor = '', 1000);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About — Healthy Life Clinic (Upgraded)</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .doctor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+  }
+  .doctor-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .doctor-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  }
+  .doctor-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+  }
+  .doctor-info {
+    padding: 14px;
+  }
+  .doctor-info h4 {
+    margin: 0;
+    color: white;
+  }
+  .doctor-info .spec {
+    color: var(--accent1);
+    font-size: 13px;
+    margin: 4px 0;
+  }
+  .doctor-info .exp {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  .doctor-info p {
+    color: #dbeeffcc;
+    font-size: 13px;
+  }
+
+  .program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+  }
+  .program-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+  }
+  .program-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.6);
+  }
+  .program-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+  .program-card .pinfo {
+    padding: 12px;
+  }
+  .program-card .pinfo h4 {
+    color: var(--accent2);
+    margin: 0 0 6px;
+  }
+  .program-card .pinfo p {
+    font-size: 13px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+  <header class="header" role="banner">
+    <div class="logo-wrap">
+      <div class="logo">HL</div>
+      <div class="brand-text">
+        <div class="title">Healthy Life Clinic</div>
+        <div class="tag">Care with compassion</div>
+      </div>
+    </div>
+
+    <div class="header-center" role="navigation">
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="About.html" class="active">About</a>
+        <a href="Services.html">Services</a>
+        <a href="Contact.html">Contact</a>
+      </nav>
+    </div>
+
+    <div class="header-actions">
+      <button class="icon-btn">🔔</button>
+      <button class="icon-btn">Help</button>
+      <button class="cta-primary" onclick="location='Contact.html'">Book</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero-card" aria-labelledby="aboutTitle">
+      <h2 id="aboutTitle" style="color:var(--accent1)">About Healthy Life Clinic</h2>
+      <p>For over a decade, Healthy Life Clinic has been delivering compassionate, high-quality healthcare.
+        Our multidisciplinary team uses advanced diagnostics and evidence-based treatment to ensure
+        holistic wellness for all patients.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px;">
+        <div class="card">
+          <h4 style="margin-top:0;color:white">Mission</h4>
+          <p>Deliver accessible, patient-centered care with focus on prevention and wellness.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;color:white">Vision</h4>
+          <p>To be a trusted healthcare partner for our community — innovating with empathy.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;color:white">Values</h4>
+          <p>Compassion, excellence, integrity, and continuous improvement.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section style="margin-top:32px;">
+      <h3 style="color:var(--accent2)">Meet Our Expert Doctors</h3>
+      <p style="color:var(--muted)">Our team of doctors consists of specialists from multiple fields — dedicated to providing the best care for every patient.</p>
+      <div class="doctor-grid" id="doctorGrid"></div>
+    </section>
+
+    <!-- Programs Section -->
+    <section style="margin-top:34px;">
+      <h3 style="color:var(--accent1)">Our Programs & Community Drives</h3>
+      <p style="color:var(--muted)">We run several social outreach, wellness, and education programs that promote health awareness and preventive care.</p>
+      <div class="program-grid" id="programGrid"></div>
+    </section>
+
+    <footer class="footer">© 2025 Healthy Life Clinic</footer>
+  </main>
+
+<script>
+  // Doctor cards data
+  const doctors = [
+    {name:'Dr. Asha Menon', field:'Chief Physician', exp:'15 years', desc:'Specializes in internal medicine and preventive healthcare. Known for compassionate diagnosis and holistic approach.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760514557/download_ksp6qf.jpg'},
+
+    {name:'Dr. Ramesh Iyer', field:'Cardiologist', exp:'12 years', desc:'Expert in non-invasive cardiology and stress management programs.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760514608/images_lz6ffm.jpg'},
+
+
+    {name:'Dr. Priya Nair', field:'Pediatrician', exp:'10 years', desc:'Dedicated to child health and development, providing family-oriented care.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760514637/download_s32j37.jpg'},
+
+
+    {name:'Dr. Harsha Rao', field:'Neurologist', exp:'14 years', desc:'Experienced in brain and nerve disorders, emphasizing neuro-wellness and recovery.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760514749/download_muge0p.jpg'},
+
+
+    {name:'Dr. Shreya Patel', field:'Gynecologist', exp:'11 years', desc:'Focuses on women’s health, fertility, and maternal well-being.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760514784/images_mebi5l.jpg'},
+
+
+    {name:'Dr. Arjun Das', field:'Orthopedic Surgeon', exp:'13 years', desc:'Specializes in joint replacements and sports injury management.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760514821/download_txo40d.jpg'},
+
+
+    {name:'Dr. Kavita Sharma', field:'Dermatologist', exp:'9 years', desc:'Skin, hair, and cosmetic specialist with expertise in advanced laser treatments.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760514838/download_xwzywy.jpg'},
+
+
+    {name:'Dr. Neeraj Gupta', field:'ENT Specialist', exp:'10 years', desc:'Treats ear, nose, and throat conditions with minimally invasive procedures.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760514855/download_w1p2ti.jpg'},
+
+
+    {name:'Dr. Sanjana Roy', field:'Psychiatrist', exp:'8 years', desc:'Focuses on mental health, counseling, and mindfulness therapy.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760514873/download_sutbdv.jpg'},
+
+
+    {name:'Dr. Manoj Kumar', field:'Oncologist', exp:'16 years', desc:'Expert in cancer care and personalized oncology treatments.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760514886/download_iwwxlg.jpg'}
+  ];
+
+  const docGrid = document.getElementById('doctorGrid');
+  doctors.forEach(d => {
+    const card = document.createElement('div');
+    card.className = 'doctor-card';
+    card.innerHTML = `
+      <img src="${d.img}" alt="${d.name}">
+      <div class="doctor-info">
+        <h4>${d.name}</h4>
+        <div class="spec">${d.field}</div>
+        <div class="exp">Experience: ${d.exp}</div>
+        <p>${d.desc}</p>
+      </div>`;
+    docGrid.appendChild(card);
+  });
+
+  // Program cards data
+  const programs = [
+    {title:'Community Health Camp', desc:'Free health screenings and consultation for rural communities.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760514918/images_dmbo4o.jpg'},
+
+
+    {title:'Blood Donation Drive', desc:'Annual blood donation event supporting regional hospitals.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760514935/download_zny2ty.jpg'},
+
+
+    {title:'Women Wellness Week', desc:'Promoting awareness on women’s preventive health and nutrition.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760514951/download_orsthq.jpg'},
+
+
+    {title:'Mental Health Awareness', desc:'Workshops and counseling sessions for stress management.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760514983/images_a09xph.jpg'},
+
+
+    {title:'School Health Check Program', desc:'Yearly free checkups and vaccination support for school children.', img:'https://res.cloudinary.com/dvgxrnhtd/image/upload/v1760515027/images_m4xdup.jpg'}
+  ];
+
+  const progGrid = document.getElementById('programGrid');
+  programs.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'program-card';
+    el.innerHTML = `
+      <img src="${p.img}" alt="${p.title}">
+      <div class="pinfo">
+        <h4>${p.title}</h4>
+        <p>${p.desc}</p>
+      </div>`;
+    progGrid.appendChild(el);
+  });
+</script>
+</body>
+</html>

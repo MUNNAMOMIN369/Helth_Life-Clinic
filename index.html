@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Healthy Life Clinic — Home (Upgraded)</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="header" role="banner" aria-label="Site header">
+    <div class="logo-wrap" aria-hidden="false">
+      <div class="logo">HL</div>
+      <div class="brand-text">
+        <div class="title">Healthy Life Clinic</div>
+        <div class="tag">Care with compassion</div>
+      </div>
+    </div>
+
+    <div class="header-center" role="navigation" aria-label="Primary navigation">
+      <nav class="nav" aria-hidden="false">
+        <a href="index.html" class="active">Home</a>
+        <a href="About.html">About</a>
+        <a href="Services.html">Services</a>
+        <a href="Contact.html">Contact</a>
+      </nav>
+    </div>
+
+    <div class="header-actions" role="group" aria-label="Header actions">
+      <button class="icon-btn" title="Search">🔍</button>
+      <button class="icon-btn" title="Login">Sign in</button>
+      <button class="cta-primary" id="bookHeader">Book</button>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-card">
+        <h1 id="heroTitle">Modern care. Warm hands. Trusted outcomes.</h1>
+        <p>Introducing an upgraded experience — easy booking, telemedicine, and specialist care under one roof. Explore features or jump straight to booking.</p>
+        <div class="cta-row">
+          <button class="cta-primary" id="heroBook">Book Appointment</button>
+          <button class="icon-btn" id="heroExplore">Explore Features</button>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;">
+          <div class="stat" style="min-width:160px;">
+            <div>
+              <strong style="color:white;font-size:18px">12k+</strong>
+              <span>Patients served</span>
+            </div>
+            <div style="font-size:26px">💖</div>
+          </div>
+          <div class="stat" style="min-width:160px;">
+            <div>
+              <strong style="color:white;font-size:18px">24/7</strong>
+              <span>Emergency care</span>
+            </div>
+            <div style="font-size:26px">🚑</div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:22px;color:var(--accent2)">Featured Highlights</h3>
+        <div id="highlights" class="features-grid" aria-live="polite">
+          <!-- JS will inject a few highlight cards -->
+        </div>
+      </div>
+
+      <aside style="display:flex;flex-direction:column;gap:14px;">
+        <div class="card center" style="padding:18px;min-width:260px">
+          <div style="text-align:center">
+            <div style="font-size:13px;color:var(--muted)">Quick Contact</div>
+            <div style="font-weight:800;font-size:18px;color:white">+1 555 123 4567</div>
+            <div style="margin-top:8px"><button class="icon-btn" id="callNow">Call Now</button></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;gap:12px;align-items:center">
+            <div class="icon-circle">🧑‍⚕️</div>
+            <div>
+              <div style="font-weight:800;color:white">Telemedicine</div>
+              <div style="font-size:13px;color:var(--muted)">Video consults with specialists</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section style="margin-top:18px;">
+      <h2 style="color:var(--accent1)">Explore our healthcare features — designed with your well-being in mind.</h2>
+      <p style="color:var(--muted)">Each feature is built to support your health journey: easy to use, accessible, and continuously updated. We’re always adding more to serve you better — because your care deserves nothing less.</p>
+      <div id="features" class="features-grid" tabindex="0" aria-label="Features list"></div>
+    </section>
+
+    <section style="margin-top:28px;">
+      <h2 style="color:var(--accent2)">Testimonials</h2>
+      <div class="card" id="testimonials" style="padding:18px;margin-top:12px"></div>
+    </section>
+
+    <footer class="footer">
+      <div>© 2025 Healthy Life Clinic • Upgraded UI • All rights reserved</div>
+    </footer>
+  </main>
+<script>
+  // Basic interactions & dynamic content
+  document.getElementById('bookHeader').addEventListener('click', ()=> location='Contact.html');
+  document.getElementById('heroBook').addEventListener('click', ()=> location='Contact.html');
+  document.getElementById('callNow').addEventListener('click', ()=> location='tel:+15551234567');
+  document.getElementById('heroExplore').addEventListener('click', ()=> {
+    document.getElementById('features').scrollIntoView({behavior:'smooth'});
+  });
+
+  // inject highlights (6 small)
+  const highlights = [
+    {t:'Same-day appointments', d:'Book and see a doctor within 24 hours.'},
+    {t:'Home sample collection', d:'Phlebotomy at your doorstep.'},
+    {t:'Insurance accepted', d:'We accept most major insurers.'},
+    {t:'Virtual waiting room', d:'Join via video and wait comfortably.'},
+    {t:'Specialist network', d:'Cardiology, Neurology, Pediatrics & more.'},
+    {t:'Secure patient portal', d:'View records & lab results online.'}
+  ];
+  const highlightsEl = document.getElementById('highlights');
+  highlights.forEach(h => {
+    const el = document.createElement('article');
+    el.className='feature-card';
+    el.tabIndex=0;
+    el.innerHTML = `<div style="font-weight:800;color:white">${h.t}</div>
+                    <div style="font-size:13px;color:var(--muted)">${h.d}</div>`;
+    highlightsEl.appendChild(el);
+  });
+
+  // Real, named features (20)
+  const featureList = [
+    {title:'Online Appointment Booking', desc:'Easily schedule consultations with specialists online.'},
+    {title:'Digital Health Records', desc:'Access your reports, prescriptions, and history anytime.'},
+    {title:'24/7 Emergency Services', desc:'Round-the-clock emergency response and ambulance support.'},
+    {title:'Home Health Care', desc:'Certified nurses available for in-home patient care.'},
+    {title:'Telemedicine Platform', desc:'Consult with doctors remotely via video conferencing.'},
+    {title:'Pharmacy Integration', desc:'One-click prescription refills and doorstep delivery.'},
+    {title:'Lab Test Tracking', desc:'Track sample collection and test results in real time.'},
+    {title:'AI Symptom Checker', desc:'Smart assistant helps pre-diagnose symptoms securely.'},
+    {title:'Wellness Programs', desc:'Personalized diet, fitness, and lifestyle guidance.'},
+    {title:'Vaccination Reminders', desc:'Get automatic notifications for immunization schedules.'},
+    {title:'Specialist Departments', desc:'Dedicated wings for Cardiology, ENT, Pediatrics, and more.'},
+    {title:'Health Packages', desc:'Affordable preventive health check-up plans.'},
+    {title:'Patient Feedback Portal', desc:'Share feedback directly with administration online.'},
+    {title:'Insurance Cashless Facility', desc:'Seamless billing with major health insurance providers.'},
+    {title:'Rehabilitation Center', desc:'Post-surgery physiotherapy and recovery assistance.'},
+    {title:'Maternity & Child Care', desc:'Comprehensive mother and child health programs.'},
+    {title:'Blood Bank Management', desc:'Quick access to donor and blood availability records.'},
+    {title:'Community Health Drives', desc:'Free health camps and rural outreach initiatives.'},
+    {title:'Mental Wellness Counseling', desc:'Professional counseling and stress management sessions.'},
+    {title:'Smart Health Monitoring', desc:'IoT-based vitals tracking for continuous patient care.'}
+  ];
+
+  const featuresEl = document.getElementById('features');
+  featureList.forEach((f, i) => {
+    const card = document.createElement('article');
+    card.className = 'feature-card';
+    card.tabIndex = 0;
+    card.innerHTML = `
+      <div style="display:flex;gap:10px;align-items:center">
+        <div style="width:42px;height:42px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));
+                    display:flex;align-items:center;justify-content:center;color:white;font-weight:800">${i+1}</div>
+        <div>
+          <strong style="color:white">${f.title}</strong>
+          <div style="font-size:13px;color:var(--muted)">${f.desc}</div>
+        </div>
+      </div>`;
+    featuresEl.appendChild(card);
+  });
+
+  // testimonials simple rotator
+  const testArr = [
+    {text:'Fantastic care and friendly staff — highly recommend!', name:'Sarah M.'},
+    {text:'Quick appointment and the doctor was very attentive.', name:'Raj P.'},
+    {text:'Telemedicine feature saved me a trip. Great experience.', name:'Lina K.'},
+    {text:'Munna Bhai MBBS. Great experience.', name:'Munna.'}
+  ];
+  const testEl = document.getElementById('testimonials');
+  let tIdx=0;
+  function showTest(){ 
+    testEl.innerHTML = `<div style="font-size:16px;color:#dbeeff">${testArr[tIdx].text}</div>
+                        <div style="margin-top:8px;font-weight:800;color:white">— ${testArr[tIdx].name}</div>`;
+    tIdx=(tIdx+1)%testArr.length;
+  }
+  showTest();
+  setInterval(showTest,4000);
+</script>
+
+</body>
+</html>

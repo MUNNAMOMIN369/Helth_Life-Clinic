@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Contact — Healthy Life Clinic (Live Map + Interactive)</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .contact-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    justify-content: center;
+  }
+  .contact-actions button {
+    flex: 1;
+    padding: 12px 0;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    color: white;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .contact-actions button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(124,58,237,0.4);
+  }
+  .contact-actions button.copy-btn {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--muted);
+  }
+  .contact-actions button.copy-btn:hover {
+    background: linear-gradient(90deg, var(--accent2), var(--accent1));
+    color: white;
+  }
+
+  .appointment-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 14px;
+    margin-top: 8px;
+  }
+  .appointment-card strong {
+    color: white;
+  }
+  iframe {
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+</style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo-wrap">
+      <div class="logo">HL</div>
+      <div class="brand-text">
+        <div class="title">Healthy Life Clinic</div>
+        <div class="tag">We're here to help</div>
+      </div>
+    </div>
+
+    <div class="header-center">
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="About.html">About</a>
+        <a href="Services.html">Services</a>
+        <a href="Contact.html" class="active">Contact</a>
+      </nav>
+    </div>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="mapBtn">Map</button>
+      <button class="icon-btn" id="hoursBtn">Hours</button>
+      <button class="cta-primary" onclick="document.getElementById('contactForm').scrollIntoView({behavior:'smooth'})">Book</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero-card">
+      <h2 style="color:var(--accent1)">Contact Us</h2>
+      <p>Have questions or want to book an appointment? Use the form below or call us directly.</p>
+
+      <form id="contactForm" style="margin-top:14px;display:grid;gap:10px;max-width:840px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <input type="text" id="name" placeholder="Full name" required style="padding:12px;border-radius:10px;border:1px solid var(--glass-border);background:transparent;color:var(--muted)">
+          <input type="email" id="email" placeholder="Email" required style="padding:12px;border-radius:10px;border:1px solid var(--glass-border);background:transparent;color:var(--muted)">
+        </div>
+        <input type="tel" id="phone" placeholder="Phone" style="padding:12px;border-radius:10px;border:1px solid var(--glass-border);background:transparent;color:var(--muted)">
+        <select id="subject" style="padding:12px;border-radius:10px;border:1px solid var(--glass-border);background:transparent;color:var(--muted)">
+          <option value="">Select topic</option>
+          <option>Appointment</option>
+          <option>Feedback</option>
+          <option>General</option>
+        </select>
+        <textarea id="message" rows="6" placeholder="Your message" maxlength="800" style="padding:12px;border-radius:10px;border:1px solid var(--glass-border);background:transparent;color:var(--muted)"></textarea>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button class="cta-primary" type="button" id="sendBtn">Send Message</button>
+          <button class="icon-btn" type="reset">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section style="margin-top:18px;">
+      <h3 style="color:var(--accent2)">Department Contacts</h3>
+      <p style="color:var(--muted)">Call or copy the number below. Buttons are large for easier access on mobile devices.</p>
+      <div id="contacts" class="features-grid"></div>
+    </section>
+
+    <section style="margin-top:24px;">
+      <h3 style="color:var(--accent1)">Nearby Hospitals</h3>
+      <p style="color:var(--muted)">Shows hospitals near your current location. Click the Map button to locate.</p>
+      <iframe id="mapFrame"
+        src="https://www.google.com/maps?q=hospitals%20near%20me&output=embed"
+        width="100%" height="320" loading="lazy"></iframe>
+    </section>
+
+    <section style="margin-top:28px;">
+      <h3 style="color:var(--accent2)">Your Appointments</h3>
+      <div id="appointmentList"></div>
+    </section>
+
+    <footer class="footer">© 2025 Healthy Life Clinic</footer>
+  </main>
+
+<script>
+  // ======= Department Contacts =======
+  const departments = [
+    {name:'General Reception', phone:'+1-555-1000', icon:'🏥'},
+    {name:'Emergency Room', phone:'+1-555-1001', icon:'🚑'},
+    {name:'Cardiology Dept.', phone:'+1-555-1002', icon:'❤️'},
+    {name:'Neurology Dept.', phone:'+1-555-1003', icon:'🧠'},
+    {name:'Pediatrics Dept.', phone:'+1-555-1004', icon:'🧒'},
+    {name:'Orthopedics Dept.', phone:'+1-555-1005', icon:'🦴'},
+    {name:'Gynecology Dept.', phone:'+1-555-1006', icon:'🤰'},
+    {name:'Dermatology Dept.', phone:'+1-555-1007', icon:'💆‍♀️'},
+    {name:'Oncology Dept.', phone:'+1-555-1008', icon:'🎗️'},
+    {name:'Telemedicine Support', phone:'+1-555-1009', icon:'💻'}
+  ];
+
+  const contactsEl = document.getElementById('contacts');
+  departments.forEach(dep => {
+    const el = document.createElement('article');
+    el.className = 'feature-card';
+    el.innerHTML = `
+      <div>
+        <strong style="color:white">${dep.icon} ${dep.name}</strong>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:8px;">Contact directly for department assistance</div>
+        <div style="font-weight:800;color:white;">${dep.phone}</div>
+      </div>
+      <div class="contact-actions">
+        <button onclick="window.location='tel:${dep.phone}'">📞 Call</button>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText('${dep.phone}').then(()=>alert('Copied ${dep.phone}'))">📋 Copy</button>
+      </div>`;
+    contactsEl.appendChild(el);
+  });
+
+  // ======= Working Nearby Hospitals Map =======
+  const mapFrame = document.getElementById('mapFrame');
+  document.getElementById('mapBtn').addEventListener('click', () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  });
+
+  function showPosition(position) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    const mapURL = `https://www.google.com/maps?q=hospitals+near+${lat},${lon}&z=14&output=embed`;
+    mapFrame.src = mapURL;
+    mapFrame.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function showError(error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        alert("Location permission denied. Showing general hospital map.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("Location unavailable. Showing default map.");
+        break;
+      case error.TIMEOUT:
+        alert("Request timed out. Showing default map.");
+        break;
+    }
+    mapFrame.src = "https://www.google.com/maps?q=hospitals%20near%20me&output=embed";
+    mapFrame.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // ======= Appointment Form =======
+  document.getElementById('sendBtn').addEventListener('click', function(){
+    const name=document.getElementById('name').value.trim();
+    const email=document.getElementById('email').value.trim();
+    const phone=document.getElementById('phone').value.trim();
+    const subject=document.getElementById('subject').value.trim();
+    const message=document.getElementById('message').value.trim();
+    if(!name||!email||!message){ alert('Please fill name, email and message'); return; }
+
+    this.disabled=true;this.textContent='Sending...';
+    setTimeout(()=>{
+      alert('Thanks '+name+' — your appointment has been booked.');
+      addAppointment({name,email,phone,subject,message});
+      this.disabled=false;this.textContent='Send Message';
+      document.getElementById('contactForm').reset();
+    },900);
+  });
+
+  const appointmentList=document.getElementById('appointmentList');
+  function addAppointment(a){
+    const card=document.createElement('div');
+    card.className='appointment-card';
+    card.innerHTML=`
+      <strong>${a.name}</strong> (${a.email})<br>
+      📞 ${a.phone || 'N/A'}<br>
+      <em>${a.subject || 'General Inquiry'}</em><br>
+      <p style="margin-top:4px;color:var(--muted)">${a.message}</p>
+      <div style="font-size:12px;color:var(--accent2)">Added on ${new Date().toLocaleString()}</div>`;
+    appointmentList.prepend(card);
+  }
+
+  // ======= Clinic Hours =======
+  document.getElementById('hoursBtn').addEventListener('click',()=>{
+    alert("Clinic Hours:\nMon–Sat: 8 AM – 8 PM\nEmergency: 24/7 Available");
+  });
+</script>
+</body>
+</html>
